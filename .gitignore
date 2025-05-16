@@ -2,6 +2,8 @@
 !.gitignore
 !**/
 
+!.github/workflows/*.yml
+
 !*.org
 !*.md
 

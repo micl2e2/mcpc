@@ -1,0 +1,177 @@
+name: mcpc
+run-name: mcpc
+on: [push]
+jobs:
+  x64-linux-gcc12-glibc236:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: ls -l .
+      - run: sudo apt-get install -y buildah podman
+      - run: buildah from --name wctn docker.io/library/debian:bookworm
+      - run: buildah run wctn -- apt-get update
+      - run: buildah run wctn -- apt-get install -y sudo bash gcc make
+      - run: buildah copy wctn ../mcpc /mcpc
+      - run: buildah run wctn -- bash -c "cd /mcpc && CC=gcc make tst"
+      - run: buildah run wctn -- bash -c "cd /mcpc && CC=gcc make install"
+      - run: buildah run wctn -- bash -c "ls -l /usr/local/lib"
+  x64-linux-gcc14-glibc240:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: ls -l .
+      - run: sudo apt-get install -y buildah podman
+      - run: buildah from --name wctn docker.io/library/fedora:41
+      - run: buildah run wctn -- dnf install -y bash gcc make
+      - run: buildah copy wctn ../mcpc /mcpc
+      - run: buildah run wctn -- bash -c "cd /mcpc && CC=gcc make tst"
+      - run: buildah run wctn -- bash -c "cd /mcpc && CC=gcc make install"
+      - run: buildah run wctn -- bash -c "ls -l /usr/local/lib"
+  x64-win2019-vs2019:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v4
+      - shell: cmd
+        run: ${{ '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat" && dir' }}
+      - shell: cmd
+        run: ${{ '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat" &&  make' }}
+      - shell: cmd
+        run: ${{ '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat" &&  make tst' }}
+      - run: dir tst/itst-svcalc.exe
+      - run: ldd tst/itst-svcalc.exe
+  x64-win2022-vs2022:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - shell: cmd
+        run: ${{ '"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat" &&  dir' }}
+      - shell: cmd
+        run: ${{ '"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat" &&  make' }}
+      - shell: cmd
+        run: ${{ '"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat" &&  make tst' }}
+      - run: dir tst/itst-svcalc.exe
+      - run: ldd tst/itst-svcalc.exe
+  x64-win2025-vs2022:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+      - shell: cmd
+        run: ${{ '"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat" &&  dir' }}
+      - shell: cmd
+        run: ${{ '"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat" &&  make' }}
+      - shell: cmd
+        run: ${{ '"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat" &&  make tst' }}
+      - run: dir tst/itst-svcalc.exe
+      - run: ldd tst/itst-svcalc.exe
+  x64-win2019-gcc:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v4
+      - run: gcc --version
+      - run: make --version
+      - run: make tst
+      - run: ldd tst/itst-svcalc.out
+  x64-win2022-gcc:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - run: gcc --version
+      - run: make --version
+      - run: make tst
+      - run: ldd tst/itst-svcalc.out
+  x64-win2025-gcc:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+      - run: gcc --version
+      - run: make --version
+      - run: make tst
+      - run: ldd tst/itst-svcalc.out
+  x64-mac13-clang:
+    runs-on: macos-13
+    steps:
+      - uses: actions/checkout@v4
+      - run: make tst
+      - run: otool -L tst/itst-svcalc.out
+  x64-mac14-clang:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - run: make tst
+      - run: otool -L tst/itst-svcalc.out
+  x64-mac15-clang:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - run: make tst
+      - run: otool -L tst/itst-svcalc.out
+  example-code-to-tree-win2025:
+    runs-on: windows-2025
+    needs: [x64-win2025-gcc]
+    steps:
+      - uses: actions/checkout@v4
+      - run: git clone --depth=1 https://github.com/tree-sitter/tree-sitter
+      - run: git clone --depth=1 https://github.com/tree-sitter/tree-sitter-c
+      - run: git clone --depth=1 https://github.com/tree-sitter/tree-sitter-cpp
+      - run: git clone --depth=1 https://github.com/tree-sitter/tree-sitter-rust
+      - run: git clone --depth=1 https://github.com/tree-sitter/tree-sitter-go
+      - run: git clone --depth=1 https://github.com/tree-sitter/tree-sitter-python
+      - run: git clone --depth=1 https://github.com/tree-sitter/tree-sitter-java
+      - run: git clone --depth=1 https://github.com/tree-sitter/tree-sitter-ruby
+      - shell: bash
+        run: cd tree-sitter && patch -i ../example/code-to-tree/ts1.patch && OS=1 make install
+      - shell: bash
+        run: cd tree-sitter-c && OS=1 make install
+      - shell: bash
+        run: cd tree-sitter-cpp && OS=1 make install
+      - shell: bash
+        run: cd tree-sitter-rust && OS=1 make install
+      - shell: bash
+        run: cd tree-sitter-go && OS=1 make install
+      - shell: bash
+        run: cd tree-sitter-python && OS=1 make install
+      - shell: bash
+        run: cd tree-sitter-java && OS=1 make install
+      - shell: bash
+        run: cd tree-sitter-ruby && OS=1 make install
+      - shell: bash
+        run: make install
+      - shell: bash
+        run: cd example/code-to-tree && CFLAGS="-I \"C:\Program Files\Git\usr\local\include\" -L \"C:\Program Files\Git\usr\local\lib\"" make
+      - run: dir example/code-to-tree
+      - run: ldd example/code-to-tree/code-to-tree.exe
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mcpc-examples_code-to-tree
+          path: example/code-to-tree/code-to-tree.exe
+  example-code-to-tree-macos13:
+    runs-on: macos13
+    needs: [x64-mac13-clang]
+    steps:
+      - uses: actions/checkout@v4
+      - run: git clone --depth=1 https://github.com/tree-sitter/tree-sitter
+      - run: git clone --depth=1 https://github.com/tree-sitter/tree-sitter-c
+      - run: git clone --depth=1 https://github.com/tree-sitter/tree-sitter-cpp
+      - run: git clone --depth=1 https://github.com/tree-sitter/tree-sitter-rust
+      - run: git clone --depth=1 https://github.com/tree-sitter/tree-sitter-go
+      - run: git clone --depth=1 https://github.com/tree-sitter/tree-sitter-python
+      - run: git clone --depth=1 https://github.com/tree-sitter/tree-sitter-java
+      - run: git clone --depth=1 https://github.com/tree-sitter/tree-sitter-ruby
+      - run: cd tree-sitter && make install
+      - run: cd tree-sitter-c && make install
+      - run: cd tree-sitter-cpp && make install
+      - run: cd tree-sitter-rust && make install
+      - run: cd tree-sitter-go && make install
+      - run: cd tree-sitter-python && make install
+      - run: cd tree-sitter-java && make install
+      - run: cd tree-sitter-ruby && make install
+      - run: make install
+      - run: cd example/code-to-tree && make
+      - run: ls -l example/code-to-tree
+      - run: otool -L example/code-to-tree/code-to-tree
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mcpc-example_code-to-tree
+          path: example/code-to-tree/code-to-tree
+
+
