@@ -2,6 +2,20 @@ name: mcpc
 run-name: mcpc
 on: [push]
 jobs:
+  x64-linux-gcc10-glibc231:
+    if: contains(github.event.head_commit.message, 'NO_GH_CI') == false
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: ls -l .
+      - run: sudo apt-get install -y buildah podman
+      - run: buildah from --name wctn docker.io/library/debian:bullseye
+      - run: buildah run wctn -- apt-get update
+      - run: buildah run wctn -- apt-get install -y sudo bash gcc make
+      - run: buildah copy wctn ../mcpc /mcpc
+      - run: buildah run wctn -- bash -c "cd /mcpc && CC=gcc make tst"
+      - run: buildah run wctn -- bash -c "cd /mcpc && CC=gcc make install"
+      - run: buildah run wctn -- bash -c "ls -l /usr/local/lib"
   x64-linux-gcc12-glibc236:
     if: contains(github.event.head_commit.message, 'NO_GH_CI') == false
     runs-on: ubuntu-24.04

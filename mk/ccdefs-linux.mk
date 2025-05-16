@@ -15,6 +15,7 @@ ifneq (,$(and $(isnot_done_ccdefs),$(is_linux)))
     is_gcc = xxx
     is_gcclike = xxx
     gcc_ver = $(shell $(CC) --version)
+    is_gcc10 = $(findstring 10.,$(gcc_ver))
     is_gcc12 = $(findstring 12.,$(gcc_ver))
     is_gcc13 = $(findstring 13.,$(gcc_ver))
     is_gcc14 = $(findstring 14.,$(gcc_ver))
@@ -27,11 +28,21 @@ ifneq (,$(and $(isnot_done_ccdefs),$(is_linux)))
   endif
 
   ldd_ver = $(shell ldd --version)
-  is_glibc236 = $(and $(findstring GLIBC,$(ldd_ver)),$(findstring 2.36,$(ldd_ver)))
-  is_gnu240 = $(and $(findstring GNU,$(ldd_ver)),$(findstring 2.40,$(ldd_ver)))
+  is_glibc231 = $(and $(findstring Free Software Foundation,$(ldd_ver)),$(findstring 2.31,$(ldd_ver)))
+  is_glibc236 = $(and $(findstring Free Software Foundation,$(ldd_ver)),$(findstring 2.36,$(ldd_ver)))
+  is_glibc240 = $(and $(findstring Free Software Foundation,$(ldd_ver)),$(findstring 2.40,$(ldd_ver)))
   is_cygwin = $(and $(findstring cygwin,$(ldd_ver)))
 
   ifeq (1,2)
+  else ifneq (,$(and $(is_gcc10),$(is_glibc231)))
+    # deb11
+    CFLAGS += -std=c17
+    CFLAGS += -DMCPC_C23PTCH_KW1
+    CFLAGS += -DMCPC_C23PTCH_CKD1
+    CFLAGS += -DMCPC_C23PTCH_UCHAR1
+    CFLAGS += -DMCPC_C23GIVUP_FIXENUM
+    is_manual_pthread = xxx
+    isnot_done_ccdefs =
   else ifneq (,$(and $(is_gcc12),$(is_glibc236)))
     # deb12
     CFLAGS += -std=c17
@@ -39,28 +50,28 @@ ifneq (,$(and $(isnot_done_ccdefs),$(is_linux)))
     CFLAGS += -DMCPC_C23PTCH_CKD1
     CFLAGS += -DMCPC_C23PTCH_UCHAR1
     CFLAGS += -DMCPC_C23GIVUP_FIXENUM
-    isnot_done_ccdefs = 
+    isnot_done_ccdefs =
   else ifneq (,$(and $(is_gcc14),$(is_cygwin)))
     # fc41
     CFLAGS += -std=c23
     CFLAGS += -DMCPC_C23PTCH_UCHAR1
-    isnot_done_ccdefs = 
+    isnot_done_ccdefs =
   else ifneq (,$(and $(is_gcc14),$(is_mingw)))
     # fc41
     CFLAGS += -std=c233
-    isnot_done_ccdefs = 
-  else ifneq (,$(and $(is_gcc14),$(is_gnu240)))
+    isnot_done_ccdefs =
+  else ifneq (,$(and $(is_gcc14),$(is_glibc240)))
     # fc41
     CFLAGS += -std=c23
-    isnot_done_ccdefs = 
-  else ifneq (,$(and $(is_clang18),$(is_gnu240)))
+    isnot_done_ccdefs =
+  else ifneq (,$(and $(is_clang18),$(is_glibc240)))
     # fc41
     CFLAGS += -std=c23
-    isnot_done_ccdefs = 
-  else ifneq (,$(and $(is_clang19),$(is_gnu240)))
+    isnot_done_ccdefs =
+  else ifneq (,$(and $(is_clang19),$(is_glibc240)))
     # fc41
     CFLAGS += -std=c23
-    isnot_done_ccdefs = 
+    isnot_done_ccdefs =
   endif
 
 

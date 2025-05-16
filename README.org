@@ -83,15 +83,16 @@ This approach certainly has some benefits and consequences:
 
 Linux:
 
-|          | GLIBC 2.36       | GLIBC 2.40       |
-|----------+------------------+------------------|
-| GCC 12   | 🔨✅ (Debian 12) | -                |
-| GCC 13   | -                | -                |
-| GCC 14   | -                | ✅✅ (Fedora 41) |
-| Clang 14 | -                | -                |
-| Clang 16 | -                | -                |
-| Clang 18 | -                | -                |
-| Clang 19 | -                | ✅✅ (Fedora 41) |
+|          | GLIBC 2.31       | GLIBC 2.36       | GLIBC 2.40       |
+|----------+------------------+------------------+------------------|
+| GCC 10   | 🔨✅ (Debian 11) | -                | -                |
+| GCC 12   | -                | 🔨✅ (Debian 12) | -                |
+| GCC 13   | -                | -                | -                |
+| GCC 14   | -                | -                | ✅✅ (Fedora 41) |
+| Clang 14 | -                | -                | -                |
+| Clang 16 | -                | -                | -                |
+| Clang 18 | -                | -                | -                |
+| Clang 19 | -                | -                | ✅✅ (Fedora 41) |
 
 
 Windows:

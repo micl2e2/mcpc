@@ -181,10 +181,13 @@ Linux:
 <col  class="org-left" />
 
 <col  class="org-left" />
+
+<col  class="org-left" />
 </colgroup>
 <thead>
 <tr>
 <th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">GLIBC 2.31</th>
 <th scope="col" class="org-left">GLIBC 2.36</th>
 <th scope="col" class="org-left">GLIBC 2.40</th>
 </tr>
@@ -192,7 +195,16 @@ Linux:
 
 <tbody>
 <tr>
+<td class="org-left">GCC 10</td>
+<td class="org-left">🔨✅ (Debian 11)</td>
+<td class="org-left">-</td>
+<td class="org-left">-</td>
+</tr>
+
+
+<tr>
 <td class="org-left">GCC 12</td>
+<td class="org-left">-</td>
 <td class="org-left">🔨✅ (Debian 12)</td>
 <td class="org-left">-</td>
 </tr>
@@ -202,11 +214,13 @@ Linux:
 <td class="org-left">GCC 13</td>
 <td class="org-left">-</td>
 <td class="org-left">-</td>
+<td class="org-left">-</td>
 </tr>
 
 
 <tr>
 <td class="org-left">GCC 14</td>
+<td class="org-left">-</td>
 <td class="org-left">-</td>
 <td class="org-left">✅✅ (Fedora 41)</td>
 </tr>
@@ -216,11 +230,13 @@ Linux:
 <td class="org-left">Clang 14</td>
 <td class="org-left">-</td>
 <td class="org-left">-</td>
+<td class="org-left">-</td>
 </tr>
 
 
 <tr>
 <td class="org-left">Clang 16</td>
+<td class="org-left">-</td>
 <td class="org-left">-</td>
 <td class="org-left">-</td>
 </tr>
@@ -230,11 +246,13 @@ Linux:
 <td class="org-left">Clang 18</td>
 <td class="org-left">-</td>
 <td class="org-left">-</td>
+<td class="org-left">-</td>
 </tr>
 
 
 <tr>
 <td class="org-left">Clang 19</td>
+<td class="org-left">-</td>
 <td class="org-left">-</td>
 <td class="org-left">✅✅ (Fedora 41)</td>
 </tr>
