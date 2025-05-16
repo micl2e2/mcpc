@@ -1,0 +1,187 @@
+#+title: mcpc
+#+options: toc:1 num:nil
+
+ 
+* Overview
+:PROPERTIES:
+:CUSTOM_ID: overview
+:END:
+
+# <img src="mcpc7.jpg" height="60px" style="border-radius:5px;" />
+# <span>&nbsp;&nbsp;&nbsp;</span>
+# <label><img src='https://img.shields.io/badge/LICENSE-MIT-green'></label>
+
+mcpc is a Model Context Protocol library in modern C. It aims to:
+- Provide a bridge between *low-level* infrastructure and AI models
+- Explore the maximum capability of the *most recent* C programming language
+
+Check [[./example/README.md][examples]] for screenshots.
+
+* MCP Features
+:PROPERTIES:
+:CUSTOM_ID: features
+:END:
+
+| Features        | Server | Client |
+|-----------------+--------+--------|
+| Tool            | ✅     | 🔨     |
+| Resource        | ✅     | 🔨     |
+| Prompt          | ✅     | 🔨     |
+| Completion      | ✅     | 🔨     |
+| STDIO Transport | ✅     | 🔨     |
+| HTTP Transport  | 🔨     | 🔨     |
+| Others          | 🔨     | 🔨     |
+
+
+* Supported Platforms
+:PROPERTIES:
+:CUSTOM_ID: platforms
+:END:
+
+|       | Linux | Windows | macOS |
+|-------+-------+---------+-------|
+| Linux | ✅    | ✅      | ✅    |
+
+Note: this table roughly shows the state of supporting on some platforms,
+for more detailed information, check the /Modern C Support/.
+
+
+
+* Modern C Support
+:PROPERTIES:
+:CUSTOM_ID: modernc
+:END:
+
+Since mcpc claims to implement everything with the most modern C
+possible, its building process becomes a little different than many
+existing building systems or process, the major
+difference is that: **we try to support as many C compilers as possible,
+even on one platform**.
+
+Ideally mcpc will be implemented fully in C23(currently the newest
+standard), but if a full C23 is missing on a platform, we
+either downgrade the C standard, or give up the support.
+
+This approach certainly has some benefits and consequences:
+
+1. The library can launch on as many platforms as possible, and be
+   able to compiled by as many C compilers as possible.
+2. There must be a minimum fallback version of C standard that the
+   library targets, currently it is C11.
+3. C23 features that are not patchable, or require non-trivial amount
+   of effort to patch, will not be used, e.g., [[https://open-std.org/JTC1/SC22/WG14/www/docs/n2508.pdf][N2508]], [[https://open-std.org/JTC1/SC22/WG14/www/docs/n2645.pdf][N2645]], etc.
+4. All safety checks and performance optimization will only focus on the
+   platforms with full C23 support.
+
+** Support Matrix
+
+=✅✅= : /implemented in C23/
+
+=🔨✅= : /implemented in C11~C17/
+
+=-= : /the platform does not exist, or work in progress/
+
+Linux:
+
+|          | GLIBC 2.36       | GLIBC 2.40       |
+|----------+------------------+------------------|
+| GCC 12   | 🔨✅ (Debian 12) | -                |
+| GCC 13   | -                | -                |
+| GCC 14   | -                | ✅✅ (Fedora 41) |
+| Clang 14 | -                | -                |
+| Clang 16 | -                | -                |
+| Clang 18 | -                | -                |
+| Clang 19 | -                | ✅✅ (Fedora 41) |
+
+
+Windows:
+
+|          | CMD/PS | Cygwin | MinGW |
+|----------+--------+--------+-------|
+| MSVC 19  | 🔨✅   | -      | -     |
+| Clang 19 | -      | -      | -     |
+| GCC 14   | -      | ✅✅   | ✅✅  |
+
+
+macOS:
+
+|          | macOS 13 | macOS 14 | macOS 15 |
+|----------+----------+----------+----------|
+| Clang 14 | 🔨✅     | -        | -        |
+| Clang 16 | -        | 🔨✅     | 🔨✅     |
+| GCC 14   | 🔨✅     | -        | -        |
+
+
+* Building
+:PROPERTIES:
+:CUSTOM_ID: building
+:END:
+
+** Building (Linux, Cygwin, MSYS2, macOS, etc.)
+
+Prerequisites:
+- GNU Make
+ 
+Then
+#+begin_src
+cd mcpc
+make && make tst && make install
+#+end_src
+
+** Building (Windows CMD/PS/VS)
+
+Prerequisites:
+- Visual Studio
+- GNU Make (=winget install ezwinports.make=)
+
+Two options to build:
+
+*** 1. Build in CMD/PS
+
+Open "x64 Native Tools Command Prompt", then
+
+#+begin_src
+cd mcpc
+make && make tst
+#+end_src
+
+*** 2. Build in Visual Studio:
+
+"File" - "Open" - "CMake", "Build" - "Build All"
+
+#+begin_quote
+This approach is only for the better debugging experience on Windows,
+/"Build in CMD/PS"/ takes priority over this one.
+#+end_quote
+
+
+* Development
+:PROPERTIES:
+:CUSTOM_ID: development
+:END:
+
+API reference can be found at [[./misc/api.md][api.md]].
+
+Dependencies:
+- [[https://github.com/cesanta/mjson][mjson]] (already in-tree)
+
+** Code Contributing
+
+Despite we claim to use modern C, as standard as possible, and as
+modern as possible, we have some extra conventions, in order to render
+our code more readable, inclusive and scalable:
+
+1. Unless mentioned explicitly, we follow GNU C [[https://www.gnu.org/prep/standards/html_node/Writing-C.html][coding style]].
+2. Prefer functions over macros, use macros only if necessary.
+3. The type of variables should be reflected in the source code. Use of
+   keyword =auto= is thus forbidden.
+4. Names of defined variables that are exposed publicly should be in
+   uppercase, otherwise in lowercase.
+
+
+* License
+:PROPERTIES:
+:CUSTOM_ID: license
+:END:
+
+#+include: "license/LICENSE.txt" src
