@@ -1,0 +1,1206 @@
+#+TITLE: API reference for mcpc
+#+OPTIONS: num:nil toc:2
+#+HTML_HEAD:  <style> .outline-3 { border-top: 2px solid lightgray; } </style>
+
+
+* Server 
+:PROPERTIES:
+:CUSTOM_ID: server
+:END:
+
+** =mcpc_server_t=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_server_t=
+:END:
+
+Server instance
+
+
+** =mcpc_server_new_iostrm=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_server_new_iostrm=
+:END:
+
+Create a I/O streams-base server.
+
+#+begin_src
+mcpc_server_t *
+mcpc_server_new_iostrm (const FILE *const strm_in, const FILE *const strm_out);
+#+end_src
+
+=strm_in=: input stream
+
+=strm_out=: output stream
+
+
+** =mcpc_server_new_tcp=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_server_new_tcp=
+:END:
+
+Create a TCP-based server.
+
+#+begin_src
+mcpc_server_t*
+mcpc_server_new_tcp ();
+#+end_src
+
+
+** =mcpc_server_set_nament=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_server_set_nament=
+:END:
+
+Set server's name.
+
+#+begin_src
+mcpc_errcode_t
+mcpc_server_set_nament (mcpc_server_t *sv, const char8_t *nament);
+#+end_src
+
+=sv=: server
+
+=nament=: null-terminated name. Must be a UTF-8 string
+
+
+** =mcpc_server_capa_enable_prmt=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_server_capa_enable_prmt=
+:END:
+
+Enable server's general capability of /Prompt/.
+
+#+begin_src
+mcpc_errcode_t
+mcpc_server_capa_enable_prmt (mcpc_server_t *sv);
+#+end_src
+
+=sv=: server
+
+
+** =mcpc_server_capa_enable_prmt_listchg=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_server_capa_enable_prmt_listchg=
+:END:
+
+Enable server's capability of notification for Prompt list updates.
+
+#+begin_src
+mcpc_errcode_t
+mcpc_server_capa_enable_prmt_listchg (mcpc_server_t *sv);
+#+end_src
+
+=sv=: server
+
+
+** =mcpc_server_capa_enable_tool=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_server_capa_enable_tool=
+:END:
+
+Enable server's general capability of /Prompt/.
+
+#+begin_src
+mcpc_errcode_t
+mcpc_server_capa_enable_tool (mcpc_server_t *sv);
+#+end_src
+
+=sv=: server
+
+
+** =mcpc_server_capa_enable_tool_listchg=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_server_capa_enable_tool_listchg=
+:END:
+
+Enable server's capability of notification for Prompt list updates.
+
+#+begin_src
+mcpc_errcode_t
+mcpc_server_capa_enable_tool_listchg (mcpc_server_t *sv);
+#+end_src
+
+=sv=: server
+
+
+** =mcpc_server_capa_enable_rsc=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_server_capa_enable_rsc=
+:END:
+
+Enable server's general capability of /Resource/.
+
+#+begin_src
+mcpc_errcode_t
+mcpc_server_capa_enable_rsc (mcpc_server_t *sv);
+#+end_src
+
+=sv=: server
+
+
+** =mcpc_server_capa_enable_rsc_subscr=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_server_capa_enable_rsc_subscr=
+:END:
+
+Enable server's capability of notification for Resource subscription.
+
+#+begin_src
+mcpc_errcode_t
+mcpc_server_capa_enable_rsc_subscr (mcpc_server_t *sv);
+#+end_src
+
+=sv=: server
+
+
+** =mcpc_server_capa_enable_rsc_listchg=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_server_capa_enable_rsc_listchg=
+:END:
+
+Enable server's capability of notification for Prompt list updates.
+
+#+begin_src
+mcpc_errcode_t
+mcpc_server_capa_enable_rsc_listchg (mcpc_server_t *sv);
+#+end_src
+
+=sv=: server
+
+
+** =mcpc_server_capa_enable_complt=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_server_capa_enable_complt=
+:END:
+
+Enable server's general capability of /Completion/.
+
+#+begin_src
+mcpc_errcode_t
+mcpc_server_capa_enable_complt (mcpc_server_t *sv);
+#+end_src
+
+=sv=: server
+
+
+** =mcpc_server_add_tool=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_server_add_tool=
+:END:
+
+Add a /Tool/ to a server.
+
+#+begin_src
+mcpc_errcode_t
+mcpc_server_add_tool (mcpc_server_t *sv, mcpc_tool_t *tool);
+#+end_src
+
+=sv=: server
+
+=tool=: tool, it will be automatically freed
+
+
+** =mcpc_server_add_prmpt=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_server_add_prmpt=
+:END:
+
+Add a /Prompt/ to a server.
+
+#+begin_src
+mcpc_errcode_t
+mcpc_server_add_prmpt (mcpc_server_t *sv, mcpc_prmpt_t *prmpt);
+#+end_src
+
+=sv=: server
+
+=prmpt=: prompt, it will be automatically freed
+
+
+** =mcpc_server_add_rsc=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_server_add_rsc=
+:END:
+
+Add a /Resource/ to a server.
+
+#+begin_src
+mcpc_errcode_t
+mcpc_server_add_rsc (mcpc_server_t *sv, mcpc_rsc_t *rsc);
+#+end_src
+
+=sv=: server
+
+=prmpt=: prompt, it will be automatically freed
+
+
+** =mcpc_server_start=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_server_start=
+:END:
+
+Start a server.
+
+#+begin_src
+mcpc_errcode_t
+mcpc_server_start (mcpc_server_t *sv);
+#+end_src
+
+=sv=: server
+
+
+** =mcpc_server_close=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_server_close=
+:END:
+
+Close a server.
+
+#+begin_src
+mcpc_errcode_t
+mcpc_server_close (mcpc_server_t *sv);
+#+end_src
+
+=sv=: server
+
+
+* Tool
+
+** =mcpc_tool_t=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_tool_t=
+:END:
+
+Tool
+
+
+** =mcpc_toolprop_t=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_toolprop_t=
+:END:
+
+Tool property
+
+
+** =mcpc_tcallcb_t=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_tcallcb_t=
+:END:
+
+The callback function of while doing tool calling.
+
+
+** =mcpc_toolprop_new=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_toolprop_new=
+:END:
+
+#+begin_src
+mcpc_toolprop_t *
+mcpc_toolprop_new (const char8_t *name, const size_t name_len, const char8_t *desc, const size_t desc_len, mcpc_anytype_t typ);
+#+end_src
+
+=name=: /tool/ property's name
+
+=name_len=: the length of /tool/ property's name
+
+=desc=: /tool/ property's description
+
+=desc_len=: the length of /tool/ property's description
+
+
+** =mcpc_toolprop_new2=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_toolprop_new2=
+:END:
+
+#+begin_src
+mcpc_toolprop_t *
+mcpc_toolprop_new2 (const char8_t *nament, const char8_t *descnt, mcpc_anytype_t typ);
+#+end_src
+
+=nament=: /tool/ property's name, must be null-terminated
+
+=descnt=: /tool/ property's description, must be null-terminated
+
+
+** =mcpc_tool_new=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_tool_new=
+:END:
+
+#+begin_src
+mcpc_tool_t *
+mcpc_tool_new (const char8_t *name, const size_t name_len, const char8_t *desc, const size_t desc_len);
+#+end_src
+
+=name=: /tool/'s name
+
+=name_len=: the length of /tool/'s name
+
+=desc=: /tool/'s description
+
+=desc_len=: the length of /tool/'s description
+
+
+** =mcpc_tool_new2=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_tool_new2=
+:END:
+
+#+begin_src
+mcpc_tool_t *
+mcpc_tool_new2 (const char8_t *nament, const char8_t *descnt);
+#+end_src
+
+=nament=: /tool/'s name, must be null-terminated
+
+=descnt=: /tool/'s description, must be null-terminated
+
+
+
+** =mcpc_tool_addfre_toolprop=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_tool_addfre_toolprop=
+:END:
+
+#+begin_src
+void
+mcpc_tool_addfre_toolprop (mcpc_tool_t *tool, mcpc_toolprop_t *toolprop);
+#+end_src
+
+=tool=: /tool/
+
+=toolprop=: /tool/ property
+
+
+** =mcpc_tool_addcpy_toolprop=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_tool_addcpy_toolprop=
+:END:
+
+#+begin_src
+void
+mcpc_tool_addcpy_toolprop (mcpc_tool_t *tool, mcpc_toolprop_t *toolprop);
+#+end_src
+
+=tool=: /tool/
+
+=toolprop=: /tool/ property
+
+
+
+** =mcpc_tool_add_toolprop=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_tool_add_toolprop=
+:END:
+
+Alias of =mcpc_tool_addfre_toolprop=
+
+
+** =mcpc_tool_get_toolprop= (deprecate)
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_tool_get_toolprop=
+:END:
+
+#+begin_src
+const mcpc_toolprop_t *
+mcpc_tool_get_toolprop (const mcpc_tool_t *tool, size_t idx);
+#+end_src
+
+=tool=: /tool/
+
+
+** =mcpc_tool_get_toolprop_len=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_tool_get_toolprop_len=
+:END:
+
+#+begin_src
+size_t
+mcpc_tool_get_toolprop_len (const mcpc_tool_t *tool);
+#+end_src
+
+=tool=: /tool/
+
+
+** =mcpc_tool_get_next_toolprop=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_tool_get_next_toolprop=
+:END:
+
+#+begin_src
+const mcpc_toolprop_t *
+mcpc_tool_get_next_toolprop (const mcpc_tool_t *tool);
+#+end_src
+
+=tool=: /Tool/
+
+
+** =mcpc_tool_get_tpropval_i32=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_tool_get_tpropval_i32=
+:END:
+
+#+begin_src
+mcpc_errcode_t
+mcpc_tool_get_tpropval_i32 (const mcpc_tool_t *tool, const char8_t *tprop_nament, int32_t *ret);
+#+end_src
+
+=tool=: /tool/
+
+=tprop_nament=: /tool/ property's name, null-terminated
+
+=ret=: the value of /tool/ property
+
+
+** =mcpc_tool_get_tpropval_u8str=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_tool_get_tpropval_u8str=
+:END:
+
+#+begin_src
+mcpc_errcode_t
+mcpc_tool_get_tpropval_u8str (const mcpc_tool_t *tool, const char8_t *tprop_nament, char8_t *ret, size_t ret_cap, size_t *ret_len);
+#+end_src
+
+=tool=: /tool/
+
+=tprop_nament=: /tool/ property's name, null-terminated
+
+=ret=: the value of /tool/ property
+
+
+** =mcpc_tool_get_call_cb=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_tool_get_call_cb=
+:END:
+
+#+begin_src
+mcpc_errcode_t
+mcpc_tool_get_call_cb (const mcpc_tool_t *tool, mcpc_tcallcb_t *ret);
+#+end_src
+
+=tool=: /tool/
+
+=ret=: the callback for /tools/call/
+
+
+** =mcpc_tool_set_call_cb=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_tool_set_call_cb=
+:END:
+
+#+begin_src
+mcpc_errcode_t
+mcpc_tool_set_call_cb (mcpc_tool_t *tool, mcpc_tcallcb_t cb);
+#+end_src
+
+=tool=: /tool/
+
+=ret=: the callback for /tools/call/
+
+
+** =mcpc_toolcall_result_add_text_printf8=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_toolcall_result_add_text_printf8=
+:END:
+
+Add a text content to the result of /tools/call/.
+
+Alias of =mcpc_ucbr_toolcall_add_text_printf8=.  
+
+
+** =mcpc_toolcall_result_add_errmsg_printf8=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_toolcall_result_add_errmsg_printf8=
+:END:
+
+Add a error message to the result of /tools/call/. This will mark the
+whole result as an error.
+
+Alias of =mcpc_toolcall_result_add_errmsg_printf8=.
+
+
+* Resource
+
+** =mcpc_rsc_t=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_rsc_t=
+:END:
+
+Resource
+
+
+** =mcpc_rsc_new=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_rsc_new=
+:END:
+
+#+begin_src
+mcpc_rsc_t *
+mcpc_rsc_new (const char8_t *uri, const size_t uri_len, const char8_t *name, const size_t name_len);
+#+end_src
+
+=uri=: /Resource/'s URI
+
+=uri_len=: the length of /Resource/'s URI
+
+=name=: /Resource/'s name
+
+=name_len=: the length of /Resource/'s name
+
+
+** =mcpc_rsc_new2=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_rsc_new2=
+:END:
+
+#+begin_src
+mcpc_rsc_t *
+mcpc_rsc_new2 (const char8_t *uri_nt, const char8_t *nament);
+#+end_src
+
+=uri_nt=: /Resource/'s URI, must be null-terminated
+
+=nament=: /Resource/'s name, must be null-terminated
+
+
+** =mcpc_rsc_new3=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_rsc_new3=
+:END:
+
+#+begin_src
+mcpc_rsc_t *
+mcpc_rsc_new3 (mcpc_mime_t mime, const char8_t *uri_nt, const char8_t *nament);
+#+end_src
+
+=mime=:  /Resource/'s MIME type
+
+=uri_nt=: /Resource/'s URI, must be null-terminated
+
+=nament=: /Resource/'s name, must be null-terminated
+
+
+** =mcpc_rsc_free=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_rsc_free=
+:END:
+
+#+begin_src
+void
+mcpc_rsc_free (mcpc_rsc_t *rsc);
+#+end_src
+
+=rsc=: /Resource/
+
+
+** =mcpc_rsc_get_uri=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_rsc_get_uri=
+:END:
+
+#+begin_src
+mcpc_errcode_t
+mcpc_rsc_get_uri (const mcpc_rsc_t *rsc, char8_t *ret, size_t ret_cap, size_t *ret_len);
+#+end_src
+
+=rsc=: /Resource/
+
+
+** =mcpc_rsc_getref_uri=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_rsc_getref_uri=
+:END:
+
+#+begin_src
+mcpc_errcode_t
+mcpc_rsc_getref_uri (const mcpc_rsc_t *rsc, const char8_t **ret, size_t *ret_len);
+#+end_src
+
+=rsc=: /Resource/.
+
+=ret=: the pointer to /Resource/'s URI.
+
+=ret_len=: the length of /Resource/'s URI.
+
+
+** =mcpc_rsc_getref_name=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_rsc_getref_name=
+:END:
+
+#+begin_src
+mcpc_errcode_t
+mcpc_rsc_getref_name (const mcpc_rsc_t *rsc, const char8_t **ret, size_t *ret_len);
+#+end_src
+
+=rsc=: /Resource/.
+
+=ret=: the pointer to /Resource/'s name.
+
+=ret_len=: the length of /Resource/'s name.
+
+
+** =mcpc_rsc_get_mime=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_rsc_get_mime=
+:END:
+
+#+begin_src
+mcpc_errcode_t
+mcpc_rsc_get_mime (const mcpc_rsc_t *rsc, mcpc_mime_t *ret);
+#+end_src
+
+=rsc=: /Resource/.
+
+=ret=: /Resource/'s MIME type.
+
+
+* Prompt
+
+** =mcpc_prmpt_t=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmpt_t=
+:END:
+
+Prompt
+
+
+** =mcpc_prmptarg_t=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmptarg_t=
+:END:
+
+prompt argument
+
+
+** =mcpc_prmptarghint_t=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmptarghint_t=
+:END:
+
+prompt argument hint
+
+
+** =mcpc_prmpt_callcb_t=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmpt_callcb_t=
+:END:
+
+callback for prompts/get
+
+
+** =mcpc_prmptarg_new=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmptarg_new=
+:END:
+
+#+begin_src
+mcpc_prmptarg_t *
+mcpc_prmptarg_new (const char8_t *name, const size_t name_len, const char8_t *desc, const size_t desc_len);
+#+end_src
+
+=name=: /Prompt/ argument's name
+
+=name_len=: the length of /Prompt/ argument's name
+
+=desc=: /Prompt/ argument's description
+
+=desc_len=: the length of /Prompt/ argument's description
+
+
+** =mcpc_prmptarg_new2=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmptarg_new2=
+:END:
+
+#+begin_src
+mcpc_prmptarg_t *
+mcpc_prmptarg_new2 (const char8_t *nament, const char8_t *descnt);
+#+end_src
+
+=nament=: /Prompt/ argument's name, must be null-terminated
+
+=descnt=: /Prompt/ argument's description, must be null-terminated
+
+
+** =mcpc_prmptarg_new3=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmptarg_new3=
+:END:
+
+#+begin_src
+mcpc_prmptarg_t *
+mcpc_prmptarg_new3 (const char8_t *nament);
+#+end_src
+
+=nament=: /Prompt/ argument's name, must be null-terminated
+
+
+** =mcpc_prmpt_new=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmpt_new=
+:END:
+
+#+begin_src
+mcpc_prmpt_t *
+mcpc_prmpt_new (const char8_t *name, const size_t name_len, const char8_t *desc, const size_t desc_len);
+#+end_src
+
+=name=: /Prompt/'s name
+
+=name_len=: the length of /Prompt/'s name
+
+=desc=: /Prompt/'s description
+
+=desc_len=: the length of /Prompt/'s description
+
+
+** =mcpc_prmpt_new2=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmpt_new2=
+:END:
+
+#+begin_src
+mcpc_prmpt_t *
+mcpc_prmpt_new2 (const char8_t *nament, const char8_t *descnt);
+#+end_src
+
+=nament=: /Prompt/'s name, must be null-terminated
+
+=descnt=: /Prompt/'s description, must be null-terminated
+
+
+** =mcpc_prmpt_new3=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmpt_new3=
+:END:
+
+#+begin_src
+mcpc_prmpt_t *
+mcpc_prmpt_new3 (const char8_t *nament);
+#+end_src
+
+=nament=: /Prompt/'s name, must be null-terminated
+
+
+** =mcpc_prmpt_addfre_prmptarg=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmpt_addfre_prmptarg=
+:END:
+
+#+begin_src
+mcpc_errcode_t
+mcpc_prmpt_addfre_prmptarg (mcpc_prmpt_t *prmpt, mcpc_prmptarg_t *prmptarg);
+#+end_src
+
+=prmpt=: /Prompt/
+
+=prmptarg=: /Prompt/ argument
+
+
+** =mcpc_prmpt_addcpy_prmptarg=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmpt_addcpy_prmptarg=
+:END:
+
+#+begin_src
+void
+mcpc_prmpt_addcpy_prmptarg (mcpc_prmpt_t *prmpt, mcpc_prmptarg_t *prmptarg);
+#+end_src
+
+=prmpt=: /Prompt/
+
+=prmptarg=: /Prompt/ argument
+
+
+** =mcpc_prmpt_add_prmptarg=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmpt_add_prmptarg=
+:END:
+
+Alias of =mcpc_prmpt_addfre_prmptarg=.
+
+** =mcpc_prmpt_get_prmptarg= (deprecated)
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmpt_get_prmptarg=
+:END:
+
+#+begin_src
+const mcpc_prmptarg_t *
+mcpc_prmpt_get_prmptarg (const mcpc_prmpt_t *prmpt, size_t idx);
+#+end_src
+
+=prmpt=: /Prompt/
+
+=idx=: ...
+
+
+** =mcpc_prmpt_get_prmptarg_len=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmpt_get_prmptarg_len=
+:END:
+
+#+begin_src
+size_t
+mcpc_prmpt_get_prmptarg_len (const mcpc_prmpt_t *prmpt);
+#+end_src
+
+=prmpt=: /Prompt/
+
+
+** =mcpc_prmpt_get_next_prmptarg=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmpt_get_next_prmptarg=
+:END:
+
+#+begin_src
+const mcpc_prmptarg_t *
+mcpc_prmpt_get_next_prmptarg (const mcpc_prmpt_t *prmpt);
+#+end_src
+
+=prmpt=: /Prompt/
+
+
+** =mcpc_prmpt_getbyname_prmptarg=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmpt_getbyname_prmptarg=
+:END:
+
+#+begin_src
+const mcpc_prmptarg_t *
+mcpc_prmpt_getbyname_prmptarg (const mcpc_prmpt_t *prmpt, const char8_t *parg_name, size_t parg_name_len);
+#+end_src
+
+=prmpt=: /Prompt/
+
+=parg_name=: /Prompt/ argument's name
+
+=parg_name_len=: the length of /Prompt/ argument's name
+
+
+** =mcpc_prmpt_getbynament_prmptarg=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmpt_getbynament_prmptarg=
+:END:
+
+#+begin_src
+const mcpc_prmptarg_t *
+mcpc_prmpt_getbynament_prmptarg (const mcpc_prmpt_t *prmpt, const char8_t *parg_nament);
+#+end_src
+
+=prmpt=: /Prompt/
+
+=parg_nament=: /Prompt/ argument's name, must be null-terminated
+
+
+** =mcpc_prmpt_get_callcb=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmpt_get_callcb=
+:END:
+
+#+begin_src
+mcpc_errcode_t
+mcpc_prmpt_get_callcb (const mcpc_prmpt_t *prmpt, mcpc_prmpt_callcb_t *ret);
+#+end_src
+
+=prmpt=: /Prompt/
+
+=ret=: the callback for /prompts/get/
+
+
+** =mcpc_prmpt_set_callcb=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmpt_set_callcb=
+:END:
+
+#+begin_src
+mcpc_errcode_t
+mcpc_prmpt_set_callcb (mcpc_prmpt_t *prmpt, mcpc_prmpt_callcb_t cb);
+#+end_src
+
+=prmpt=: /prompt/
+
+=ret=: the callback for /prompts/get/
+
+
+** =mcpc_prmptarg_get_u8str=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmptarg_get_u8str=
+:END:
+
+#+begin_src
+mcpc_errcode_t
+mcpc_prmptarg_get_u8str (const mcpc_prmptarg_t *prmptarg, char8_t *ret, size_t ret_cap, size_t *ret_len);
+#+end_src
+
+=prmptarg=: /prompt/ argument
+
+=ret=: caller-provided buffer
+
+=ret_cap=: the buffer's capacity
+
+=ret_len=: the buffer's length
+
+
+** =mcpc_prmptarg_getref_u8str=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmptarg_getref_u8str=
+:END:
+
+#+begin_src
+mcpc_errcode_t
+mcpc_prmptarg_getref_u8str (const mcpc_prmptarg_t *prmptarg, const char8_t **ret, size_t *ret_len);
+#+end_src
+
+=prmptarg=: /prompt/ argument
+
+=ret=: the pointer to prompt's argument string data
+
+=ret_len=: the length of prompt's argument string data
+
+
+** =mcpc_prmptarg_add_hint_printf8=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmptarg_add_hint_printf8=
+:END:
+
+#+begin_src
+mcpc_errcode_t
+mcpc_prmptarg_add_hint_printf8 (mcpc_prmptarg_t *prmptarg, const char8_t *fmt, ...);
+#+end_src
+
+=prmptarg=: /prompt/ argument
+
+=fmt=: the format string to print
+
+
+** =mcpc_prmptget_result_add_user_printf8=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmptget_result_add_user_printf8=
+:END:
+
+Add a complete _user_ prompt to the result of /prompts/get/.
+
+Alias of =mcpc_ucbr_prmptget_add_user_printf8=. 
+
+
+** =mcpc_prmptget_result_add_assist_printf8=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_prmptget_result_add_assist_printf8=
+:END:
+
+
+Add a complete _assistant_ prompt to the result of /prompts/get/.
+
+Alias of =mcpc_ucbr_prmptget_add_assist_printf8=. 
+
+
+* Others
+
+** =mcpc_errcode_t=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_
+:END:
+
+Library-specific error codes.
+
+*** Possible values
+
+=MCPC_EC_0=: success
+
+=MCPC_EC_BUG=: bug
+
+=MCPC_EC_BUFCAP=: insufficient buffer capacity
+
+=MCPC_EC_LONGTOOLNAME=: tool's name is too long
+
+=MCPC_EC_LONGTOOLDESC=: tool's description is too long
+
+=MCPC_EC_LONGTPROPNAME=: tool property's name is too long
+
+=MCPC_EC_LONGTPROPDESC=: tool property's description is too long
+
+=MCPC_EC_TOOLPROP_NOTFOUND=: tool property is not found
+
+=MCPC_EC_TOOLCALL_USERERR=: after tool calling, user indicates an error
+
+=MCPC_EC_CONNPOOL_NOTADD=: connection cannot be added
+
+=MCPC_EC_SVIMPL_SOCKET=: fail to create TCP socket
+
+=MCPC_EC_SVIMPL_BIND=: fail to bind TCP socket
+
+=MCPC_EC_SVIMPL_LISTEN=: fail to listen TCP socket
+
+=MCPC_EC_SVIMPL_TCP_INSUF_BUF=: insufficient buffer capacity
+
+=MCPC_EC_ANYDATA_NOTFOUND=: data cannot be found
+
+=MCPC_EC_ANYDATA_LONGNAME=: data's name is too long
+
+=MCPC_EC_PRMPTARG_NOTFOUND=:  prompt agument cannot be found
+
+=MCPC_EC_JSON_FIELD_INVALID=: json field's value invalid, this means
+the field is missing, or field has unexpected type
+
+
+** =mcpc_anytype_t=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_anytype_t=
+:END:
+
+The data type recognizable by the library.
+
+*** Possible values
+
+=MCPC_NONE=: nothing
+
+=MCPC_I8=: =int8_t=-like type
+
+=MCPC_U8=: =uint8_t=-like type
+
+=MCPC_I16=: =int16_t=-like type
+
+=MCPC_U16=: =uint16_t=-like type
+
+=MCPC_I32=: =int32_t=-like type
+
+=MCPC_U32=: =uint32_t=-like type
+
+=MCPC_I64=: =int64_t=-like type
+
+=MCPC_U64=: =uint64_t=-like type
+
+=MCPC_U8STR=: string of UTF-8 code units
+
+=MCPC_I8S=: an array of =int8_t=
+
+=MCPC_U8S=: an array of =uint8_t=
+
+=MCPC_I16S=: an array of =int16_t=
+
+=MCPC_U16S=: an array of =uint16_t=
+
+=MCPC_I32S=: an array of =int32_t=
+
+=MCPC_U32S=: an array of =uint32_t=
+
+=MCPC_I64S=: an array of =int64_t=
+
+=MCPC_U64S=: an array of =uint64_t=
+
+=MCPC_FUNC=: a function
+
+
+** =mcpc_mime_t=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_mime_t=
+:END:
+
+MIME types recognizable by the library, that conforms to [[https://www.rfc-editor.org/rfc/rfc2045][RFC2045]].
+
+*** Possible value
+
+=MCPC_MIME_NONE=: nothing
+
+=MCPC_MIME_TEXT_PLAIN=: text/plain
+
+=MCPC_MIME_IMAGE_PNG=: image/png
+
+=MCPC_MIME_IMAGE_JPEG=: image/jpeg
+
+=MCPC_MIME_IMAGE_GIF=: image/gif
+
+=MCPC_MIME_AUDIO_MPEG=: audio/mpeg
+
+=MCPC_MIME_AUDIO_WAV=: audio/wav
+
+=MCPC_MIME_VIDEO_MPEG=: video/mpeg
+
+=MCPC_MIME_VIDEO_AVI=: video/avi
+
+=MCPC_MIME_APPLI_OCTS=: application/octet-stream
+
+=MCPC_MIME_APPLI_JSON=: application/json
+
+=MCPC_MIME_APPLI_PDF=: application/pdf
+
+
+** =mcpc_ucbr_t=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_ucbr_t=
+:END:
+
+User call back result.
+
+
+** =mcpc_ucbr_toolcall_add_text_printf8=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_ucbr_toolcall_add_text_printf8=
+:END:
+
+Add a text message to the result of /tools/call/.
+
+#+begin_src
+void
+mcpc_ucbr_toolcall_add_text_printf8 (mcpc_ucbr_t *ucbr, const char8_t *fmt, ...);
+#+end_src
+
+=ucbr=: the callback result
+
+=fmt=: format string to be printed
+
+
+** =mcpc_ucbr_toolcall_add_errmsg_printf8=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_ucbr_toolcall_add_errmsg_printf8=
+:END:
+
+Add a error message to the result of /tools/call/.
+
+#+begin_src
+void
+mcpc_ucbr_toolcall_add_errmsg_printf8 (mcpc_ucbr_t *ucbr, const char8_t *fmt, ...);
+#+end_src
+
+=ucbr=: the callback result
+
+=fmt=: format string to be printed
+
+
+** =mcpc_ucbr_prmptget_add_user_printf8=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_ucbr_prmptget_add_user_printf8=
+:END:
+
+Add a user prompt to the result of /prompts/get/.
+
+#+begin_src
+void
+mcpc_ucbr_prmptget_add_user_printf8 (mcpc_ucbr_t *ucbr, const char8_t *fmt, ...);
+#+end_src
+
+=ucbr=: the callback result
+
+=fmt=: format string to be printed
+
+
+** =mcpc_ucbr_prmptget_add_assist_printf8=
+:PROPERTIES:
+:CUSTOM_ID: =mcpc_ucbr_prmptget_add_assist_printf8=
+:END:
+
+Add an assistant prompt to the result of /prompts/get/.
+
+#+begin_src
+void
+mcpc_ucbr_prmptget_add_assist_printf8 (mcpc_ucbr_t *ucbr, const char8_t *fmt, ...);
+#+end_src
+
+=ucbr=: the callback result
+
+=fmt=: format string to be printed
+
