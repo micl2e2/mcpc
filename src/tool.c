@@ -30,7 +30,8 @@
 #include "alloc.h"
 #include "anydata.h"
 
-// ------------------------------ toolprop ------------------------------
+
+/* = = = = = = = = = = = = = = = toolprop = = = = = = = = = = = = = = = */
 
 MCPC_API mcpc_toolprop_t *
 mcpc_toolprop_new (const char8_t *name, const size_t name_len, const char8_t *desc, const size_t desc_len,
@@ -119,13 +120,11 @@ mcpc_toolprop_set_u32 (mcpc_toolprop_t *toolprop, u32_t val)
   return mcpc_anydata_set_u32 (toolprop, val);
 }
 
-
 mcpc_errcode_t
 mcpc_toolprop_set_i64 (mcpc_toolprop_t *toolprop, i64_t val)
 {
   return mcpc_anydata_set_i64 (toolprop, val);
 }
-
 
 mcpc_errcode_t
 mcpc_toolprop_set_u64 (mcpc_toolprop_t *toolprop, u64_t val)
@@ -133,13 +132,11 @@ mcpc_toolprop_set_u64 (mcpc_toolprop_t *toolprop, u64_t val)
   return mcpc_anydata_set_u64 (toolprop, val);
 }
 
-
 mcpc_errcode_t
 mcpc_toolprop_set_func (mcpc_toolprop_t *toolprop, void *val)
 {
   return mcpc_anydata_set_func (toolprop, val);
 }
-
 
 mcpc_errcode_t
 mcpc_toolprop_get_i8 (const mcpc_toolprop_t *toolprop, i8_t *ret)
@@ -147,13 +144,11 @@ mcpc_toolprop_get_i8 (const mcpc_toolprop_t *toolprop, i8_t *ret)
   return mcpc_anydata_get_i8 (toolprop, ret);
 }
 
-
 mcpc_errcode_t
 mcpc_toolprop_get_u8 (const mcpc_toolprop_t *toolprop, u8_t *ret)
 {
   return mcpc_anydata_get_u8 (toolprop, ret);
 }
-
 
 mcpc_errcode_t
 mcpc_toolprop_get_i16 (const mcpc_toolprop_t *toolprop, i16_t *ret)
@@ -161,13 +156,11 @@ mcpc_toolprop_get_i16 (const mcpc_toolprop_t *toolprop, i16_t *ret)
   return mcpc_anydata_get_i16 (toolprop, ret);
 }
 
-
 mcpc_errcode_t
 mcpc_toolprop_get_u16 (const mcpc_toolprop_t *toolprop, u16_t *ret)
 {
   return mcpc_anydata_get_u16 (toolprop, ret);
 }
-
 
 mcpc_errcode_t
 mcpc_toolprop_get_i32 (const mcpc_toolprop_t *toolprop, i32_t *ret)
@@ -175,13 +168,11 @@ mcpc_toolprop_get_i32 (const mcpc_toolprop_t *toolprop, i32_t *ret)
   return mcpc_anydata_get_i32 (toolprop, ret);
 }
 
-
 mcpc_errcode_t
 mcpc_toolprop_get_u32 (const mcpc_toolprop_t *toolprop, u32_t *ret)
 {
   return mcpc_anydata_get_u32 (toolprop, ret);
 }
-
 
 mcpc_errcode_t
 mcpc_toolprop_get_i64 (const mcpc_toolprop_t *toolprop, i64_t *ret)
@@ -189,21 +180,17 @@ mcpc_toolprop_get_i64 (const mcpc_toolprop_t *toolprop, i64_t *ret)
   return mcpc_anydata_get_i64 (toolprop, ret);
 }
 
-
 mcpc_errcode_t
 mcpc_toolprop_get_u64 (const mcpc_toolprop_t *toolprop, u64_t *ret)
 {
   return mcpc_anydata_get_u64 (toolprop, ret);
 }
 
-
-
 mcpc_errcode_t
 mcpc_toolprop_set_i8s (mcpc_toolprop_t *toolprop, const i8_t *arr, size_t arr_len)
 {
   return mcpc_anydata_set_i8s (toolprop, arr, arr_len);
 }
-
 
 mcpc_errcode_t
 mcpc_toolprop_set_u8s (mcpc_toolprop_t *toolprop, const u8_t *arr, size_t arr_len)
@@ -307,8 +294,7 @@ mcpc_toolprop_get_u8str (const mcpc_toolprop_t *toolprop, char8_t *ret, size_t r
   return mcpc_anydata_get_u8str (toolprop, ret, ret_cap, ret_len);
 }
 
-
-// ---------------------------- toolproppool ----------------------------
+/* = = = = = = = = = = = = = toolproppool = = = = = = = = = = = = = */
 
 size_t
 mcpc_toolproppool_get_len (const mcpc_toolproppool_t *toolproppool)
@@ -326,8 +312,7 @@ mcpc_toolproppool_get (const mcpc_toolproppool_t *toolproppool, size_t idx)
   return ((mcpc_anypool_t *) toolproppool)->head + idx;
 }
 
-
-// ------------------------------ tool ------------------------------
+/* = = = = = = = = = = = = = = = = = tool = = = = = = = = = = = = = = = = = */
 
 MCPC_API mcpc_tool_t *
 mcpc_tool_new (const char8_t *name, const size_t name_len, const char8_t *desc, const size_t desc_len)
@@ -471,9 +456,7 @@ mcpc_tool_get_toolproppool (const mcpc_tool_t *tool)
   return tool->chd_pool;
 }
 
-
-
-// ---------------------------- toolpool ----------------------------
+/* = = = = = = = = = = = = = = = toolpool = = = = = = = = = = = = = = = */
 
 mcpc_toolpool_t *
 mcpc_toolpool_new ()
@@ -507,7 +490,6 @@ mcpc_toolpool_get_len (const mcpc_toolpool_t *toolpool)
   ret = ((const mcpc_anypool_t *) toolpool)->len;
   return ret;
 }
-
 
 const mcpc_tool_t *
 mcpc_toolpool_get (const mcpc_toolpool_t *toolpool, size_t idx)

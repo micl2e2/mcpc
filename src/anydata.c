@@ -32,7 +32,7 @@ const mcpc_anydata_t *mcpc_anypool_getbymeta1nt (const mcpc_anypool_t * anypool,
 
 constexpr static size_t mcpc_anypool_gamt = 8;
 
-// ---------------------------- anydata ----------------------------
+/* = = = = = = = = = = = = = = = = anydata = = = = = = = = = = = = = = = = */
 
 mcpc_anydata_t *
 mcpc_anydata_new ()
@@ -79,7 +79,6 @@ mcpc_anydata_new_meta1nt_meta2nt (const char8_t *meta1nt, const char8_t *meta2nt
   return mcpc_anydata_new_meta1_meta2 (meta1nt, u8strlen (meta1nt), meta2nt, u8strlen (meta2nt));
 }
 
-
 mcpc_anydata_t *
 mcpc_anydata_new_typ_meta1 (mcpc_anytype_t typ, const char8_t *meta1, const size_t meta1_len)
 {
@@ -96,7 +95,6 @@ mcpc_anydata_new_typ_meta1_meta2 (mcpc_anytype_t typ, const char8_t *meta1, cons
   hp_data->data_typ = typ;
   return hp_data;
 }
-
 
 mcpc_anydata_t *
 mcpc_anydata_new_typ_meta1nt_meta2nt (mcpc_anytype_t typ, const char8_t *meta1nt, const char8_t *meta2nt)
@@ -187,15 +185,6 @@ mcpc_anydata_copy (mcpc_anydata_t *dest_data, const mcpc_anydata_t *src_data)
 
 }
 
-
-// mcpc_errcode_t
-// mcpc_anydata_set_call_cb (mcpc_anydata_t *data, mcpc_tcallcb_t cb)
-// {
-//   bug_if_nullptr (data);
-//   data->call_cb = cb;
-//   return MCPC_EC_0;
-// }
-
 void
 mcpc_anydata_add_child (mcpc_anydata_t *data, mcpc_anydata_t *child)
 {
@@ -276,7 +265,6 @@ mcpc_anydata_release_data (mcpc_anydata_t *anydata)
 
   return MCPC_EC_0;
 }
-
 
 mcpc_errcode_t
 mcpc_anydata_set_intlk (mcpc_anydata_t *anydata, mcpc_anytype_t typ, const void *val)
@@ -560,7 +548,6 @@ mcpc_anydata_get_func (const mcpc_anydata_t *anydata, void *ret)
   return mcpc_anydata_get_intlk (anydata, MCPC_FUNC, ret);
 }
 
-
 mcpc_errcode_t
 mcpc_anydata_set_i8s (mcpc_anydata_t *anydata, const i8_t *arr, size_t arr_len)
 {
@@ -708,7 +695,7 @@ mcpc_anydata_getref_meta2 (const mcpc_anydata_t *anydata, const char8_t **ret, s
   return MCPC_EC_0;
 }
 
-// ---------------------------- anypool ----------------------------
+/* = = = = = = = = = = = = = = = = anypool = = = = = = = = = = = = = = = = */
 
 mcpc_anypool_t *
 mcpc_anypool_new ()

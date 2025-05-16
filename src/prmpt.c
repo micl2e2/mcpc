@@ -30,7 +30,7 @@
 #include "alloc.h"
 #include "anydata.h"
 
-// ------------------------------ prmptarg ------------------------------
+/* = = = = = = = = = = = = = = = prmptarg = = = = = = = = = = = = = = = */
 
 MCPC_API mcpc_prmptarg_t *
 mcpc_prmptarg_new (const char8_t *name, const size_t name_len, const char8_t *desc, const size_t desc_len)
@@ -107,7 +107,6 @@ mcpc_prmptarg_set_required (mcpc_prmptarg_t *prmptarg, bool fl)
   return MCPC_EC_0;
 }
 
-
 mcpc_errcode_t
 mcpc_prmptarg_set_nament (mcpc_prmptarg_t *prmptarg, const char8_t *name)
 {
@@ -132,8 +131,7 @@ mcpc_prmptarg_getref_u8str (const mcpc_prmptarg_t *prmptarg, const char8_t **ret
   return mcpc_anydata_getref_u8str (prmptarg, ret, ret_len);
 }
 
-
-// ------------------------------ prmpt ------------------------------
+/* = = = = = = = = = = = = = = = = = prmpt = = = = = = = = = = = = = = = = = */
 
 MCPC_API mcpc_prmpt_t *
 mcpc_prmpt_new (const char8_t *name, const size_t name_len, const char8_t *desc, const size_t desc_len)
@@ -259,9 +257,7 @@ mcpc_prmpt_getbynament_prmptarg (const mcpc_prmpt_t *prmpt, const char8_t *parg_
   return (mcpc_prmptarg_t *) chd;
 }
 
-
-
- // ---------------------------- prmptpool ----------------------------
+/* = = = = = = = = = = = = = = = prmptpool = = = = = = = = = = = = = = = */
 
 mcpc_prmptpool_t *
 mcpc_prmptpool_new ()
@@ -308,7 +304,7 @@ mcpc_prmptpool_getbyname (const mcpc_prmptpool_t *prmptpool, const char8_t *name
   return mcpc_anypool_getbymeta1 (prmptpool, name, name_len);
 }
 
-// -------------------------- prmptarghint --------------------------
+/* -= = = = = = = = = = = = = = prmptarghint = = = = = = = = = = = = = = = */
 
 mcpc_prmptarghint_t *
 mcpc_prmptarghint_new ()
@@ -348,13 +344,11 @@ mcpc_prmptarg_add_hint_printf8 (mcpc_prmptarg_t *prmptarg, const char8_t *fmt, .
   return MCPC_EC_0;
 }
 
-
 mcpc_errcode_t
 mcpc_prmptarghint_getref_u8str (const mcpc_prmptarg_t *prmptarghint, const char8_t **ret, size_t *ret_len)
 {
   return mcpc_anydata_getref_u8str (prmptarghint, ret, ret_len);
 }
-
 
 const mcpc_prmptarghint_t *
 mcpc_prmptarg_get_next_prmptarghint (const mcpc_prmptarg_t *prmptarg)

@@ -35,7 +35,6 @@ mcpc_complt_new ()
   return hp;
 }
 
-
 mcpc_errcode_t
 mcpc_complt_add_compltcandi_u8str (mcpc_complt_t *complt, const char8_t *u8str, size_t u8str_len)
 {
@@ -49,8 +48,6 @@ mcpc_complt_add_compltcandi_u8str (mcpc_complt_t *complt, const char8_t *u8str, 
   return MCPC_EC_0;
 }
 
-
-//
 // provide completions for specific prompt arg, completing its hint, (currently hint is anydata with merely u8str data)
 mcpc_complt_t *
 mcpc_complt_new_prmptarg (const mcpc_prmpt_t *prmpt, const char8_t *argname, size_t argname_len, const char8_t *argval,
@@ -86,8 +83,6 @@ mcpc_complt_new_prmptarg (const mcpc_prmpt_t *prmpt, const char8_t *argname, siz
   return complt;
 }
 
-
-// - - -
 // provide completions for specific rsc, completing uri
 mcpc_complt_t *
 mcpc_complt_new_rsc (const mcpc_rscpool_t *rscpool, const char8_t *uriparts, size_t uriparts_len)
@@ -116,14 +111,11 @@ mcpc_complt_new_rsc (const mcpc_rscpool_t *rscpool, const char8_t *uriparts, siz
   return complt;
 }
 
-
-
 void
 mcpc_complt_free (mcpc_complt_t *complt)
 {
   mcpc_anydata_free (complt);
 }
-
 
 mcpc_errcode_t
 mcpc_complt_get_compltcandi_len (const mcpc_complt_t *complt, size_t *ret)
@@ -162,8 +154,6 @@ mcpc_complt_get_next_compltcand (const mcpc_complt_t *complt)
 
   return ret;
 }
-
-
 
 mcpc_errcode_t
 mcpc_compltcand_getref_u8str (const mcpc_compltcand_t *compltcand, const char8_t **ret, size_t *ret_len)

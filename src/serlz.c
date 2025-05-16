@@ -27,8 +27,7 @@
 #include "log.h"
 
 
-
-// ------------------------------ tool ------------------------------
+/* = = = = = = = = = = = = = = = = = tool = = = = = = = = = = = = = = = = = */
 
 u8_t
 serlz_tool_inputschema_properties_prop (retbuf_t rtbf, const mcpc_toolprop_t *tprop)
@@ -150,9 +149,7 @@ serlz_toolpool (retbuf_t rtbf, const mcpc_toolpool_t *toolpool)
   return 0;
 }
 
-// ----------------------------- prmpt -----------------------------
-
-
+/* = = = = = = = = = = = = = = = = = prmpt = = = = = = = = = = = = = = = = = */
 
 u8_t
 serlz_prmptarg (retbuf_t rtbf, const mcpc_prmptarg_t *prmptarg)
@@ -176,7 +173,6 @@ serlz_prmptarg (retbuf_t rtbf, const mcpc_prmptarg_t *prmptarg)
   rtbuf_printf_mjfmt (rtbf, u8c1 ("}"));
   return 0;
 }
-
 
 uint8_t
 serlz_prmpt (retbuf_t rtbf, const mcpc_prmpt_t *prmpt)
@@ -236,8 +232,7 @@ serlz_prmptpool (retbuf_t rtbf, const mcpc_prmptpool_t *prmptpool)
   return 0;
 }
 
-
-/* ------------------------------ rsc ------------------------------ */
+/* = = = = = = = = = = = = = = = = = = rsc = = = = = = = = = = = = = = = = = = */
 
 u8_t
 serlz_rsc (retbuf_t rtbf, const mcpc_rsc_t *rsc)
@@ -329,7 +324,7 @@ serlz_rscpool (retbuf_t rtbf, const mcpc_rscpool_t *rscpool)
   return 0;
 }
 
-/* ------------------------------- - ------------------------------- */
+/* = = = = = = = = = = = = = = = = = = = - = = = = = = = = = = = = = = = = = = = */
 
 uint8_t
 serlz_serverInfo (retbuf_t rtbf, const mcpc_server_t *sv)
@@ -423,7 +418,7 @@ serlz_initres (retbuf_t rtbf, const mcpc_server_t *sv)
   return 0;
 }
 
-// ------------------------------ ucbr ------------------------------
+/* = = = = = = = = = = = = = = = = = ucbr = = = = = = = = = = = = = = = = = */
 
 uint8_t
 serlz_ucbrchd_tool_callres (retbuf_t rtbf, const mcpc_ucbrchd_t *ucbrchd)
@@ -557,8 +552,7 @@ serlz_prmpt_callres (retbuf_t rtbf, const mcpc_ucbr_t *ucbr)
   return 0;
 }
 
-
-// ----------------------------- complt -----------------------------
+/* = = = = = = = = = = = = = = = = complt = = = = = = = = = = = = = = = = */
 
 u8_t
 serlz_complt (retbuf_t rtbf, const mcpc_complt_t *complt)

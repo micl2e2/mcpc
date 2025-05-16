@@ -54,7 +54,6 @@ mcpc_rsc_new2 (const char8_t *uri_nt, const char8_t *nament)
   return mcpc_rsc_new (uri_nt, u8strlen (uri_nt), nament, u8strlen (nament));
 }
 
-
 MCPC_API mcpc_rsc_t *
 mcpc_rsc_new3 (mcpc_mime_t mime, const char8_t *uri_nt, const char8_t *nament)
 {
@@ -103,7 +102,7 @@ mcpc_rsc_free (mcpc_rsc_t *rsc)
   mcpc_anydata_free (rsc);
 }
 
-// --------------------------- rscpool ---------------------------
+/* = = = = = = = = = = = = = = = = rscpool = = = = = = = = = = = = = = = = */
 
 mcpc_rscpool_t *
 mcpc_rscpool_new ()

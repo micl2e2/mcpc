@@ -30,6 +30,8 @@
 #include "errcode.h"
 #include "ext_string.h"
 
+/* = = = = = = = = = = = = = = = = ucbrchd = = = = = = = = = = = = = = = = */
+
 mcpc_ucbrchd_t *
 mcpc_ucbrchd_new_vprintf8 (const char8_t *fmt, va_list *vargs)
 {
@@ -106,7 +108,7 @@ mcpc_ucbrchd_is_assist_prmpt (const mcpc_ucbrchd_t *ucbrchd)
   return ucbrchd->flags & ANYDATA_FL_USRCBRES_PRMPTCALL_ASSIST;
 }
 
-// --------------------------- ucbr ---------------------------
+/* = = = = = = = = = = = = = = = = = ucbr = = = = = = = = = = = = = = = = = */
 
 mcpc_ucbr_t *
 mcpc_ucbr_new ()
