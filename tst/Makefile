@@ -64,6 +64,9 @@ itst-svcalc_ldflags =
 ifneq (,$(is_unixar))
   itst-svcalc_ldflags += ../src/libmcpc.a
 endif
+ifneq (,$(is_manual_pthread))
+  itst-svcalc_ldflags += -lpthread
+endif
 ifneq (,$(is_winlib))
   itst-svcalc_ldflags += ws2_32.lib
   itst-svcalc_ldflags += ..\src\mcpc.lib
@@ -77,7 +80,7 @@ itst-svcalc_COMP:
 	$(if $(is_gcclike) , $(CC) $(CFLAGS) $(itst-svcalc_srcs) -c )
 	$(if $(is_cllike) , $(CC) $(CFLAGS) $(itst-svcalc_srcs) /c )
 itst-svcalc_LINKE: itst-svcalc_COMP
-	$(if $(is_gcclike) , $(CC) $(itst-svcalc_objs)  $(LDFLAGS) $(itst-svcalc_ldflags) -o itst-svcalc.out )
+	$(if $(is_gcclike) , $(CC) $(itst-svcalc_objs) $(LDFLAGS) $(itst-svcalc_ldflags) -o itst-svcalc.out )
 	$(if $(is_cllike) , $(CC) $(itst-svcalc_objs) /link /out:itst-svcalc.exe $(LDFLAGS) $(itst-svcalc_ldflags))
 itst-svcalc_EXEC: itst-svcalc_LINKE
 	@ echo>>$@.stdout.log; echo>>$@.stderr.log;
