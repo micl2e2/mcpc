@@ -3,6 +3,7 @@ run-name: mcpc
 on: [push]
 jobs:
   x64-linux-gcc12-glibc236:
+    if: contains(github.event.head_commit.message, 'NO_GH_CI') == false
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
@@ -16,6 +17,7 @@ jobs:
       - run: buildah run wctn -- bash -c "cd /mcpc && CC=gcc make install"
       - run: buildah run wctn -- bash -c "ls -l /usr/local/lib"
   x64-linux-gcc14-glibc240:
+    if: contains(github.event.head_commit.message, 'NO_GH_CI') == false
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
@@ -28,6 +30,7 @@ jobs:
       - run: buildah run wctn -- bash -c "cd /mcpc && CC=gcc make install"
       - run: buildah run wctn -- bash -c "ls -l /usr/local/lib"
   x64-win2019-vs2019:
+    if: contains(github.event.head_commit.message, 'NO_GH_CI') == false
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v4
@@ -40,6 +43,7 @@ jobs:
       - run: dir tst/itst-svcalc.exe
       - run: ldd tst/itst-svcalc.exe
   x64-win2022-vs2022:
+    if: contains(github.event.head_commit.message, 'NO_GH_CI') == false
     runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
@@ -52,6 +56,7 @@ jobs:
       - run: dir tst/itst-svcalc.exe
       - run: ldd tst/itst-svcalc.exe
   x64-win2025-vs2022:
+    if: contains(github.event.head_commit.message, 'NO_GH_CI') == false
     runs-on: windows-2025
     steps:
       - uses: actions/checkout@v4
@@ -64,6 +69,7 @@ jobs:
       - run: dir tst/itst-svcalc.exe
       - run: ldd tst/itst-svcalc.exe
   x64-win2019-gcc:
+    if: contains(github.event.head_commit.message, 'NO_GH_CI') == false
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v4
@@ -72,6 +78,7 @@ jobs:
       - run: make tst
       - run: ldd tst/itst-svcalc.out
   x64-win2022-gcc:
+    if: contains(github.event.head_commit.message, 'NO_GH_CI') == false
     runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
@@ -80,6 +87,7 @@ jobs:
       - run: make tst
       - run: ldd tst/itst-svcalc.out
   x64-win2025-gcc:
+    if: contains(github.event.head_commit.message, 'NO_GH_CI') == false
     runs-on: windows-2025
     steps:
       - uses: actions/checkout@v4
@@ -88,24 +96,28 @@ jobs:
       - run: make tst
       - run: ldd tst/itst-svcalc.out
   x64-mac13-clang:
+    if: contains(github.event.head_commit.message, 'NO_GH_CI') == false
     runs-on: macos-13
     steps:
       - uses: actions/checkout@v4
       - run: make tst
       - run: otool -L tst/itst-svcalc.out
   x64-mac14-clang:
+    if: contains(github.event.head_commit.message, 'NO_GH_CI') == false
     runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
       - run: make tst
       - run: otool -L tst/itst-svcalc.out
   x64-mac15-clang:
+    if: contains(github.event.head_commit.message, 'NO_GH_CI') == false
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
       - run: make tst
       - run: otool -L tst/itst-svcalc.out
   example-code-to-tree-win2025:
+    if: contains(github.event.head_commit.message, 'NO_GH_CI') == false
     runs-on: windows-2025
     needs: [x64-win2025-gcc]
     steps:
