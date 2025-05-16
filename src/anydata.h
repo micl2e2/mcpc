@@ -205,8 +205,6 @@ struct mcpc_anypool
   const mcpc_anydata_t *head;
 };
 
-constexpr static size_t mcpc_anypool_gamt = 8;
-
 const mcpc_anydata_t *mcpc_anypool_get (const mcpc_anypool_t * anypool, size_t idx);
 
 const mcpc_anydata_t *mcpc_anypool_getbymeta1 (const mcpc_anypool_t * anypool, const char8_t * meta1, size_t meta1_len);

@@ -581,13 +581,12 @@ serlz_complt (retbuf_t rtbf, const mcpc_complt_t *complt)
   const mcpc_compltcand_t *cur_compltcand = nullptr;
   bool first = true;
   while ((cur_compltcand = mcpc_complt_get_next_compltcand (complt)))
-    // LASTEDIT   0507
     {
       if (!first)
 	rtbuf_printf_mjfmt (rtbf, u8c1 (","));
       const char8_t *sbuf = nullptr;
       size_t sbuf_len = 0;
-      bug_if_nz (mcpc_compltcand_getref_u8str (cur_compltcand, &sbuf, &sbuf_len));	// NOT IMPL, IMPL@0508
+      bug_if_nz (mcpc_compltcand_getref_u8str (cur_compltcand, &sbuf, &sbuf_len));
       bug_if_nullptr (sbuf);
       bug_if_zero (sbuf_len);
 

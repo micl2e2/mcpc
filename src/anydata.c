@@ -30,6 +30,7 @@
 const mcpc_anydata_t *mcpc_anypool_getbymeta1 (const mcpc_anypool_t * anypool, const char8_t * meta1, size_t meta1_len);
 const mcpc_anydata_t *mcpc_anypool_getbymeta1nt (const mcpc_anypool_t * anypool, const char8_t * meta1nt);
 
+constexpr static size_t mcpc_anypool_gamt = 8;
 
 // ---------------------------- anydata ----------------------------
 

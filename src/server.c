@@ -121,7 +121,6 @@ mcpc_errcode_t
 _tulc_jstr_get_field_u8str (struct jsonrpc_request *r, const char8_t *jstr, size_t jstr_len, const char8_t *jpathnt,
 			    char8_t **ret, size_t *ret_len, size_t ret_cap, bool not_empty)
 {
-  // will copy into ret
   const char *jstr2 = (const char *) jstr;
   int jstr_len2 = (int) jstr_len;
   const char *jpathnt2 = (const char *) jpathnt;
@@ -160,7 +159,6 @@ _tulc_jparams_get_field_u8str (struct jsonrpc_request *r,
 mcpc_errcode_t
 _tulc_jparams_getref_field_obj (struct jsonrpc_request *r, const char8_t *jpathnt, const char8_t **ret, size_t *ret_len)
 {
-  // will copy into ret
   const char *jpathnt2 = (const char *) jpathnt;
   int tmptok;
 
@@ -181,7 +179,6 @@ mcpc_errcode_t
 _tulc_jparams_getref_field_u8str_q (struct jsonrpc_request *r, const char8_t *jpathnt, const char8_t **ret,
 				    size_t *ret_len)
 {
-  // will copy into ret
   const char *jpathnt2 = (const char *) jpathnt;
   int tmptok;
 
@@ -202,7 +199,6 @@ mcpc_errcode_t
 _tulc_jstr_get_field_number (struct jsonrpc_request *r, const char8_t *jstr, size_t jstr_len,
 			     const char8_t *jpathnt, double *ret)
 {
-  // will copy into ret
   const char *jpathnt2 = (const char *) jpathnt;
   double numval = 0;
 
@@ -408,7 +404,7 @@ mcpc_server_capa_enable_complt (mcpc_server_t *sv)
   return MCPC_EC_0;
 }
 
-bool
+static inline bool
 _server_is_buggy (const mcpc_server_t *sv)
 {
   if (sv == nullptr)
@@ -417,10 +413,6 @@ _server_is_buggy (const mcpc_server_t *sv)
     return true;
   if (sv->toolpool == nullptr)
     return true;
-  // if (sv->toolpool->head == nullptr)
-  //   return true;
-  // if (sv->toolpool->len < 1)
-  //   return true;
 
   return false;
 }
@@ -537,15 +529,6 @@ _wait_iostrm (mcpc_server_t *sv)
 
       ch = getc (in_strm);
 
-      /* while ((ch = fgetc(in_strm)) != EOF) */
-      /* { */
-
-      /* while (true) */
-      /* { */
-      /* ch = getc(in_strm); */
-      // TODO: macos causing segfault?
-      /* tulog_d("ch:%x", ch); */
-
       if (!enter_str && ch == CH_LBRC)
 	{
 	  n_brace += 1;
@@ -553,13 +536,11 @@ _wait_iostrm (mcpc_server_t *sv)
 	    start_read = true;
 	}
 
-      /* brace control */
       if (!start_read)
 	{
 	  continue;
 	}
 
-      // copy
       if (start_read)
 	{
 	  *rbuf_p = (char) ch;
@@ -568,7 +549,6 @@ _wait_iostrm (mcpc_server_t *sv)
 	  last_read = (char) ch;
 	  if (rbuf_p - rbuf >= (ptrdiff_t) rbuf_cap)
 	    {
-	      // insufficicent buffer cap
 	      size_t oldcap = rbuf_cap;
 	      rbuf_cap += rbuf_cap;
 	      rbuf = mcpc_realloc (rbuf, rbuf_cap);
@@ -576,7 +556,6 @@ _wait_iostrm (mcpc_server_t *sv)
 	    }
 	}
 
-      /* check last read */
       if (!enter_str && last_read == CH_RBRC)
 	{
 	  n_brace -= 1;
@@ -620,7 +599,6 @@ _start_iostrm (mcpc_server_t *sv)
 
 // ------------------------------ tcp ------------------------------
 
-// Structure to pass arguments to the thread function
 typedef struct
 {
   mcpc_sock_t csock;
@@ -634,7 +612,6 @@ _new_tcp_listen (mcpc_sock_t *ssock)
   mcpc_sock_t tmpsock = (mcpc_sock_t) 0;
   struct sockaddr_in saddr;
 
-  // Create the server socket
   tmpsock = socket (AF_INET, SOCK_STREAM, 0);
 #if is_unix
   if (tmpsock < 0)
@@ -651,7 +628,6 @@ _new_tcp_listen (mcpc_sock_t *ssock)
   int optval = 1;
   mcpc_assert (0 == setsockopt (tmpsock, level, optname, (const char *) &optval, sizeof (optval)), MCPC_EC_BUG);
 
-  // Set the server address
   saddr.sin_family = AF_INET;
   saddr.sin_port = htons (PORT);
 #if defined(is_unix)
@@ -660,13 +636,11 @@ _new_tcp_listen (mcpc_sock_t *ssock)
   saddr.sin_addr.s_addr = inet_addr ("127.0.0.1");
 #endif
 
-  // Bind the server socket to the address and port
   if (bind (tmpsock, (struct sockaddr *) &saddr, sizeof (saddr)) == -1)
     {
       return MCPC_EC_SVIMPL_BIND;
     }
 
-  // Listen for incoming connections
   if (listen (tmpsock, 16) == -1)
     {
       return MCPC_EC_SVIMPL_LISTEN;
@@ -692,10 +666,7 @@ _wait_conn (void *args)
 #endif
   mcpc_server_t *sv = thread_args_ptr->sv;
 
-  // Print client information
   tulog_d ("New connection from client IP address %s and port %d", inet_ntoa (caddr.sin_addr), ntohs (caddr.sin_port));
-
-  // Receive and send data back to the client
 
   char ch;
   int n_brace = 0;
@@ -730,7 +701,6 @@ _wait_conn (void *args)
 	    start_read = true;
 	}
 
-      /* brace control */
       if (!start_read)
 	{
 	  continue;
@@ -744,13 +714,11 @@ _wait_conn (void *args)
 	  last_read = ch;
 	  if (rbuf_p - rbuf >= (ptrdiff_t) rbuf_cap)
 	    {
-	      // insufficicent buffer cap
 	      rbuf_cap += rbuf_cap;
 	      rbuf = mcpc_realloc (rbuf, rbuf_cap);
 	    }
 	}
 
-      /* check last read */
       if (!enter_str && last_read == CH_RBRC)
 	{
 	  n_brace -= 1;
@@ -774,8 +742,6 @@ _wait_conn (void *args)
 
   free (rbuf);
 
-
-// Close the client socket
 #ifdef is_unix
   close (csock);
 #endif
@@ -823,7 +789,6 @@ _svimpl_tcp (mcpc_server_t *sv)
   mcpc_sock_t csock;
   while (true)
     {
-      // Accept incoming connections
       csock = accept (ssock, (struct sockaddr *) &caddr, &caddr_length);
 #ifdef is_unix
       if (csock < 0)
@@ -836,13 +801,11 @@ _svimpl_tcp (mcpc_server_t *sv)
 	    continue;
 	  }
 
-      // Create a new thread to handle the client connection
       accept_hdlr_args_t *args = (accept_hdlr_args_t *) mcpc_alloc (sizeof (accept_hdlr_args_t));
       args->csock = csock;
       args->caddr = caddr;
       args->sv = sv;
 
-      // Spawn A Thread To Handle
 #ifdef is_unix
       pthread_t thread;
       if (pthread_create (&thread, nullptr, _wait_conn, args) != 0)
@@ -1058,8 +1021,9 @@ mcpc_connpool_find_by_sock (const mcpc_connpool_t *connpool, mcpc_sock_t sock)
 {
   mcpc_assert (!_connpool_is_buggy (connpool), MCPC_EC_BUG);
 
+  // iostrm
   if (mcpc_sock_invalid (sock))
-    {				// iostrm
+    {			
       return connpool->head;
     }
 
@@ -1152,14 +1116,6 @@ _handle_initbeg (mcpc_server_t *sv, struct jsonrpc_request *r, mcpc_sock_t csock
 
   conn->client_init = MCPC_INIT_BEG;
 
-  // dbg
-  /* jsonrpc_return_success(r, */
-  /*                        "capas(%d):%.*s  proto(%d):%.*s  clientInfo(%d):%.*s  " */
-  /*                        "clientInfo.name(%d):%.*s", */
-  /*                        capas_len, capas_len, capas, protover_len, protover_len, protover, cinfo_len, cinfo_len,
-   */
-  /*                        cinfo, cinfo_name_len, cinfo_name_len, cinfo_name); */
-
 output_res:
   return;
 }
@@ -1182,7 +1138,6 @@ _handle_initdone (mcpc_server_t *sv, struct jsonrpc_request *r, mcpc_sock_t csoc
 
   conn->client_init = MCPC_INIT_SUCC;
   *noreply = true;
-  /* jsonrpc_return_success(r, "done"); */
 
 output_res:
   return;
