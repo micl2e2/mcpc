@@ -198,7 +198,7 @@ jobs:
       - run: otool -L example/code-to-tree/code-to-tree
       - uses: actions/upload-artifact@v4
         with:
-          name: mcpc-example_code-to-tree
+          name: mcpc-examples_code-to-tree
           path: example/code-to-tree/code-to-tree
 
 
