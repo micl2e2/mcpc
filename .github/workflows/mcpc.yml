@@ -168,7 +168,7 @@ jobs:
       - run: ldd example/code-to-tree/code-to-tree.exe
       - uses: actions/upload-artifact@v4
         with:
-          name: mcpc-examples_code-to-tree
+          name: mcpc-example_code-to-tree_win
           path: example/code-to-tree/code-to-tree.exe
   example-code-to-tree-macos13:
     if: contains(github.event.head_commit.message, 'NO_GH_CI') == false
@@ -198,7 +198,7 @@ jobs:
       - run: otool -L example/code-to-tree/code-to-tree
       - uses: actions/upload-artifact@v4
         with:
-          name: mcpc-examples_code-to-tree
+          name: mcpc-example_code-to-tree_mac
           path: example/code-to-tree/code-to-tree
 
 
