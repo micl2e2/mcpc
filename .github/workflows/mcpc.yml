@@ -172,7 +172,8 @@ jobs:
           path: example/code-to-tree/code-to-tree.exe
   example-code-to-tree-macos13:
     if: contains(github.event.head_commit.message, 'NO_GH_CI') == false
-    runs-on: macos13
+    runs-on: macos-13
+    needs: [x64-mac13-clang]
     steps:
       - uses: actions/checkout@v4
       - run: git clone --depth=1 https://github.com/tree-sitter/tree-sitter
