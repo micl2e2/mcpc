@@ -20,8 +20,6 @@ mcpc is a Model Context Protocol library in modern C. It aims to:
 -   Provide a bridge between **low-level** infrastructure and AI models
 -   Explore the maximum capability of the **most recent** C programming language
 
-Check [examples](./example/README.md) for screenshots.
-
 
 <a id="features"></a>
 
