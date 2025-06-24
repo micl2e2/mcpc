@@ -43,19 +43,6 @@ jobs:
       - run: buildah run wctn -- bash -c "cd /mcpc && CC=gcc make tst"
       - run: buildah run wctn -- bash -c "cd /mcpc && CC=gcc make install"
       - run: buildah run wctn -- bash -c "ls -l /usr/local/lib"
-  x64-win2019-vs2019:
-    if: contains(github.event.head_commit.message, 'NO_GH_CI') == false
-    runs-on: windows-2019
-    steps:
-      - uses: actions/checkout@v4
-      - shell: cmd
-        run: ${{ '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat" && dir' }}
-      - shell: cmd
-        run: ${{ '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat" &&  make' }}
-      - shell: cmd
-        run: ${{ '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat" &&  make tst' }}
-      - run: dir tst/itst-svcalc.exe
-      - run: ldd tst/itst-svcalc.exe
   x64-win2022-vs2022:
     if: contains(github.event.head_commit.message, 'NO_GH_CI') == false
     runs-on: windows-2022
@@ -82,15 +69,6 @@ jobs:
         run: ${{ '"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat" &&  make tst' }}
       - run: dir tst/itst-svcalc.exe
       - run: ldd tst/itst-svcalc.exe
-  x64-win2019-gcc:
-    if: contains(github.event.head_commit.message, 'NO_GH_CI') == false
-    runs-on: windows-2019
-    steps:
-      - uses: actions/checkout@v4
-      - run: gcc --version
-      - run: make --version
-      - run: make tst
-      - run: ldd tst/itst-svcalc.out
   x64-win2022-gcc:
     if: contains(github.event.head_commit.message, 'NO_GH_CI') == false
     runs-on: windows-2022
