@@ -87,10 +87,22 @@ itst-svcalc_EXEC: itst-svcalc_LINKE
 	$(if $(is_unix) , @ date>>$@.stdout.log; date>>$@.stderr.log; )
 	$(if $(is_cmd) , echo ___>>$@.stdout.log; echo ___>>$@.stderr.log; )
 	$(if $(is_pkill) , pkill itst-sv || printf "" )
-        # itst-svcalc
+        # itst-svcalc toolslist
 	$(if $(is_dirsh) , ./itst-svcalc.out iostrm -i itst-svcalc-req-toolslist-1.json 1>>$@.stdout.log 2>>$@.stderr.log )
 	$(if $(is_cmd) , itst-svcalc.exe iostrm -i itst-svcalc-req-toolslist-1.json 1>>$@.stdout.log 2>>$@.stderr.log )
 	$(if $(and $(is_indirsh),$(is_cllike)) , ./itst-svcalc.exe iostrm -i itst-svcalc-req-toolslist-1.json 1>>$@.stdout.log 2>>$@.stderr.log )
 	$(if $(and $(is_indirsh),$(is_gcclike)) , ./itst-svcalc.out iostrm -i itst-svcalc-req-toolslist-1.json 1>>$@.stdout.log 2>>$@.stderr.log )
 	$(if $(is_valg) , valgrind --leak-check=full --show-leak-kinds=all --errors-for-leak-kinds=all --error-exitcode=222 ./itst-svcalc.out iostrm -i itst-svcalc-req-toolslist-1.json 1>/dev/null 2>/dev/null )
+        # itst-svcalc promptslist
+	$(if $(is_dirsh) , ./itst-svcalc.out iostrm -i itst-svcalc-req-promptslist-1.json 1>>$@.stdout.log 2>>$@.stderr.log )
+	$(if $(is_cmd) , itst-svcalc.exe iostrm -i itst-svcalc-req-promptslist-1.json 1>>$@.stdout.log 2>>$@.stderr.log )
+	$(if $(and $(is_indirsh),$(is_cllike)) , ./itst-svcalc.exe iostrm -i itst-svcalc-req-promptslist-1.json 1>>$@.stdout.log 2>>$@.stderr.log )
+	$(if $(and $(is_indirsh),$(is_gcclike)) , ./itst-svcalc.out iostrm -i itst-svcalc-req-promptslist-1.json 1>>$@.stdout.log 2>>$@.stderr.log )
+	$(if $(is_valg) , valgrind --leak-check=full --show-leak-kinds=all --errors-for-leak-kinds=all --error-exitcode=222 ./itst-svcalc.out iostrm -i itst-svcalc-req-promptslist-1.json 1>/dev/null 2>/dev/null )
+        # itst-svcalc resourceslist
+	$(if $(is_dirsh) , ./itst-svcalc.out iostrm -i itst-svcalc-req-resourceslist-1.json 1>>$@.stdout.log 2>>$@.stderr.log )
+	$(if $(is_cmd) , itst-svcalc.exe iostrm -i itst-svcalc-req-resourceslist-1.json 1>>$@.stdout.log 2>>$@.stderr.log )
+	$(if $(and $(is_indirsh),$(is_cllike)) , ./itst-svcalc.exe iostrm -i itst-svcalc-req-resourceslist-1.json 1>>$@.stdout.log 2>>$@.stderr.log )
+	$(if $(and $(is_indirsh),$(is_gcclike)) , ./itst-svcalc.out iostrm -i itst-svcalc-req-resourceslist-1.json 1>>$@.stdout.log 2>>$@.stderr.log )
+	$(if $(is_valg) , valgrind --leak-check=full --show-leak-kinds=all --errors-for-leak-kinds=all --error-exitcode=222 ./itst-svcalc.out iostrm -i itst-svcalc-req-resourceslist-1.json 1>/dev/null 2>/dev/null )
 	@echo P A S S E D : $(patsubst %_EXEC,%,$@)
