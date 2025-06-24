@@ -7,6 +7,7 @@
 -   [Modern C Support](#modernc)
 -   [Building](#building)
 -   [Development](#development)
+-   [FAQ](#org73da0a6)
 -   [License](#license)
 
 
@@ -15,9 +16,10 @@
 
 # Overview
 
-mcpc is a Model Context Protocol library in modern C. It aims to:
+mcpc is a <b>M</b>odel <b>C</b>ontext <b>P</b>rotocol library in modern <b>C</b>. Its major goals are:
 
--   Provide a bridge between **low-level** infrastructure and AI models
+-   Provide the **most native** bridge between low-level infrastructure
+    and AI models
 -   Explore the maximum capability of the **most recent** C programming language
 
 
@@ -422,6 +424,27 @@ our code more readable, inclusive and scalable:
     keyword `auto` is thus forbidden.
 4.  Names of defined variables that are exposed publicly should be in
     uppercase, otherwise in lowercase.
+
+
+<a id="org73da0a6"></a>
+
+# FAQ
+
+
+## Should I prefer mcpc over other SDKs?
+
+It depends on your use case. Roughly speaking, if
+
+1.  you prefer your MCP servers or clients to perform tasks in the most
+    native way (e.g. manually manage memory allocation, equipped with
+    competitive performance, etc.).
+2.  you wish your MCP servers or clients are distributed with minimum
+    software requirements (i.e. you don't want to force users to
+    have Python, Node.js or similar things installed on their machines)
+
+then mcpc is for you. Otherwise I would strongly recommend you consider
+Python, Javscript or other SDKs, they have more intuitive and
+easy-to-use high-level APIs for MCP protocol.
 
 
 <a id="license"></a>
